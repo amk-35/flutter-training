@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:testt/views/email_check.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -54,61 +53,68 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Align(
           alignment: Alignment.center,
-          child: Text('Stateless vs Stateful'),
+          child: Text('Login'),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const StaticQuote(),
-            const SizedBox(height: 20),
-            const CounterWidget(),
-            const SizedBox(height: 30),
-
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                labelText: "Username",
-                border: OutlineInputBorder(),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const StaticQuote(),
+              const SizedBox(height: 20),
+              const CounterWidget(),
+              const SizedBox(height: 30),
+      
+              TextField(
+                controller: _usernameController,
+                decoration: const InputDecoration(
+                  labelText: "Username",
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: "Password",
-                border: OutlineInputBorder(),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(
+                  labelText: "Password",
+                  border: OutlineInputBorder(),
+                ),
+                obscureText: true,
               ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
+      
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : TextButton(
+                      onPressed: _login,
+                      child: const Text("Login"),
+                    ),
+      
+            TextButton(onPressed: () { 
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
 
-            _isLoading
-                ? const CircularProgressIndicator()
-                : TextButton(
-                    onPressed: _login,
-                    child: const Text("Login"),
-                  ),
-
-            const SizedBox(height: 30),
-
-            /// Show status/info at bottom
-            Text(
-              _statusMessage,
-              style: TextStyle(
-                color: _statusMessage.startsWith('✅')
-                    ? Colors.green
-                    : Colors.red,
-                fontSize: 16,
-              ),
-            ),
-            EmailVerificationChecker()
-          ],
+              },
+            child: const Text("Not registered?")),
+      
+      
+              /// Show status/info at bottom
+              // Text(
+              //   _statusMessage,
+              //   style: TextStyle(
+              //     color: _statusMessage.startsWith('✅')
+              //         ? Colors.green
+              //         : Colors.red,
+              //     fontSize: 16,
+              //   ),
+              // ),
+      
+              // EmailVerificationChecker()
+            ],
+          ),
         ),
-      ),
     );
   }
 }
