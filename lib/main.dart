@@ -96,3 +96,4 @@ class _VerifyEamilViewState extends State<VerifyEamilView> {
 }
 
 // 🏠 Home Screen combining both widgets
+//i added a line in main.dart
